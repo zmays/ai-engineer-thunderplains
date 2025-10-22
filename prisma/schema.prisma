@@ -1,0 +1,31 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Memory {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    category  String
+    content   String
+    tags      String[]
+    source    String?
+    imagePath String?
+}
+
+model SystemPrompt {
+    id        Int      @id
+    content   String
+    updatedAt DateTime @updatedAt
+}
+
+model PromptAudit {
+    id              String   @id @default(cuid())
+    createdAt       DateTime @default(now())
+    previousContent String?
+    newContent      String
+}
